@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="cs-cz" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>scrum-poker-online</title>
+        <link rel="stylesheet" href="/css/screen.css" type="text/css" media="all">
+    </head>
+    <body>
+        scrum-poker-online
+        <br/>
+
+        <label>
+            Jsem Hráč:
+            <input id="playerButton" type="text" required />
+        </label>
+        <button onclick="iAmPlayer()">Hrat</button>
+
+        <hr/>
+
+        <button onclick="iAmTV()">Jsem TV</button>
+
+        <script>
+            function iAmTV() {
+                window.location.replace("http://" + window.location.host + "/tv");
+            }
+            function iAmPlayer() {
+                var name = document.querySelector("#playerButton").value.trim();
+
+                localStorage.setItem("name", name);
+                window.location.replace("http://" + window.location.host + "/player/" + name);
+            }
+        </script>
+    </body>
+</html>

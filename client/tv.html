@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cs-cz" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>scrum-poker-online</title>
+        <link rel="stylesheet" href="/css/screen.css" type="text/css" media="all">
+    </head>
+    <body>
+        <h1>TV</h1>
+        <div id="table">
+
+        </div>
+    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/tv.js"></script>
+
+    <script>
+        "use strict";
+        var socket = io.connect("http://" + window.location.host);
+
+        // dependency socket
+        var tv = new TV(socket);
+        tv.addToGame();
+    </script>
+</html>

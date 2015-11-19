@@ -1,0 +1,14 @@
+{
+  "name": "scrum-poker-online",
+  "version": "1.0.0",
+  "description": "Online scrum poker, on the TV and other players.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomas Pavlacky",
+  "license": "ISC",
+  "devDependencies": {
+    "socket.io": "^1.3.7"
+  }
+}

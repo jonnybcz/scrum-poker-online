@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cs-cz" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <title>scrum-poker-online</title>
+        <link rel="stylesheet" href="/css/screen.css" type="text/css" media="all">
+    </head>
+    <body>
+        <div class="line">
+            <div class="card">0</div>
+            <div class="card">1/2</div>
+            <div class="card">1</div>
+        </div>
+        <div class="line">
+            <div class="card">2</div>
+            <div class="card">3</div>
+            <div class="card">5</div>
+        </div>
+        <div class="line">
+            <div class="card">8</div>
+            <div class="card">13</div>
+            <div class="card">20</div>
+        </div>
+        <div class="line">
+            <div class="card">40</div>
+            <div class="card">100</div>
+            <div class="card">∞</div>
+        </div>
+        <div class="line">
+            <div class="card">?</div>
+            <div class="card">kafe</div>
+        </div>
+    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/player.js"></script>
+
+    <script>
+        "use strict";
+        var socket = io.connect("http://" + window.location.host);
+
+        // dependency socket
+        var player = new Player(socket);
+        player.addToGame();
+    </script>
+</html>

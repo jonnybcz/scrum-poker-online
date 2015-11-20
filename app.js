@@ -1,3 +1,4 @@
+"use strict";
 var app = require("http").createServer(handler);
 var io = require("socket.io").listen(app);
 var fs = require("fs");
@@ -19,7 +20,14 @@ function handler(req, res) {
         {action: "/js/player.js", contentType: "text/javascript", type: "text"},
         {action: "/js/tv.js", contentType: "text/javascript", type: "text"},
         {action: "/css/screen.css", contentType: "text/css", type: "text"},
-        {action: "/error.html", contentType: "text/html", type: "text"}
+        {action: "/css/fontello.css", contentType: "text/css", type: "text"},
+        {action: "/css/animation.css", contentType: "text/css", type: "text"},
+        {action: "/img/grass.png", contentType: "image/png", type: "text"},
+        {action: "/error.html", contentType: "text/html", type: "text"},
+        {action: "/font/fontello.eot", contentType: "application/vnd.ms-fontobject", type: "text"},
+        {action: "/font/fontello.svg", contentType: "image/svg+xml", type: "text"},
+        {action: "/font/fontello.ttf", contentType: "application/font-ttf", type: "text"},
+        {action: "/font/fontello.woff", contentType: "application/font-woff", type: "text"}
     ];
 
     // prida Hrace do hry
@@ -52,24 +60,31 @@ function handler(req, res) {
     }
 }
 
-var players = {};
-var tvs = [];
-
-function addPlayer(socket, player) {
-    players[player.name] = player;
-    console.log("######");
-    console.log(players);
-    socket.broadcast.emit("dataChanged", players);
-}
-
-function addTV(tv) {
-    console.log("######");
-    console.log(arguments);
-}
-
-
+var Players = require("./server/players");
+var players = new Players();
 
 io.sockets.on("connection", function (socket) {
-    socket.on("addPlayer", addPlayer.bind(this, socket));
-    socket.on("addTV", addTV);
+    socket.on("addPlayer", (player) => {
+        // add player and emit it
+        players.add(player.name, socket.id);
+        socket.broadcast.emit("dataChanged", players.getPlayers());
+    });
+
+    socket.on("cardChanged", (data) => {
+        // player changedCard, emit it
+        players.changed(data, socket.id);
+        console.log(players.getPlayers());
+        socket.broadcast.emit("dataChanged", players.getPlayers());
+    });
+
+    socket.on("addTV", () => {
+        // send players
+        socket.emit("dataChanged", players.getPlayers());
+    });
+
+    socket.on("disconnect", () => {
+        // remove player and emit it
+        players.remove(socket.id);
+        socket.broadcast.emit("dataChanged", players.getPlayers());
+    });
 });

@@ -29,7 +29,7 @@
         </div>
         <div class="line">
             <div class="card">?</div>
-            <div class="card">kafe</div>
+            <div class="card">coffee</div>
         </div>
     </body>
     <script src="/socket.io/socket.io.js"></script>
@@ -40,7 +40,17 @@
         var socket = io.connect("http://" + window.location.host);
 
         // dependency socket
-        var player = new Player(socket);
+        var player = new Player(socket, document.querySelectorAll(".card"));
         player.addToGame();
+
+        // iOS prevent sleep
+        var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+
+        if (iOS) {
+            iosSleepPreventInterval = setInterval(function () {
+                window.location.href = "/new/page";
+                window.setTimeout(function () { window.stop(); }, 0);
+            }, 20000);
+        };
     </script>
 </html>

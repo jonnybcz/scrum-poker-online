@@ -5,12 +5,11 @@
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <title>scrum-poker-online</title>
         <link rel="stylesheet" href="/css/screen.css" type="text/css" media="all">
+        <link rel="stylesheet" href="/css/fontello.css" type="text/css" media="all">
+        <link rel="stylesheet" href="/css/animation.css" type="text/css" media="all">
     </head>
     <body>
-        <h1>TV</h1>
-        <div id="table">
-
-        </div>
+        <div id="table"></div>
     </body>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/tv.js"></script>
@@ -20,7 +19,7 @@
         var socket = io.connect("http://" + window.location.host);
 
         // dependency socket
-        var tv = new TV(socket);
+        var tv = new TV(socket, document.querySelector("#table"));
         tv.addToGame();
     </script>
 </html>

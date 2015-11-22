@@ -23,6 +23,12 @@
       "css": "check",
       "code": 59393,
       "src": "entypo"
+    },
+    {
+      "uid": "8f73806c205d38d9412c340f93ed0c7a",
+      "css": "coffee",
+      "code": 59395,
+      "src": "typicons"
     }
   ]
 }

@@ -29,9 +29,9 @@ function handler(req, res) {
         {action: "/font/fontello.ttf", contentType: "application/font-ttf", type: "text"},
         {action: "/font/fontello.woff", contentType: "application/font-woff", type: "text"}
     ];
-
+    console.log(req.method);
     // prida Hrace do hry
-    if (request.path.match(/^\/player\//)) {
+    if (request.path.match(/^\/game/)) {
         return returnFile(
             {
                 action: "/player.html",

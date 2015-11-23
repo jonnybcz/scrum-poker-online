@@ -6,30 +6,40 @@
         <title>scrum-poker-online</title>
         <link rel="stylesheet" href="/css/screen.css" type="text/css" media="all">
     </head>
-    <body>
-        scrum-poker-online
-        <br/>
-
-        <label>
-            Jsem Hráč:
-            <input id="playerButton" type="text" required />
-        </label>
-        <button onclick="iAmPlayer()">Hrat</button>
-
+    <body id="welcome-screen">
+        <div class="center">
+            <h1>scrum-poker-online</h1>
+            <br/>
+            <form id="start-game">
+                <label>
+                    Name:
+                    <input id="player-name" type="text" required />
+                </label>
+                <button>Play</button>
+            </form>
+        </div>
         <hr/>
-
-        <button onclick="iAmTV()">Jsem TV</button>
-
+        <div class="center">
+            <button onclick="iAmTV()">i am tv</button>
+        </div>
         <script>
+            (function() {
+                var playerName = document.querySelector("#player-name");
+                var localStorageKey = "name";
+                var localStorageValue = localStorage.getItem(localStorageKey);
+                
+                if (localStorageValue) { playerName.value = localStorageValue; }
+                
+                document.querySelector("#start-game").addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    localStorage.setItem(localStorageKey, playerName.value.trim());
+                    window.location.replace("http://" + window.location.host + "/game");
+                });
+            })();
+            
             function iAmTV() {
                 window.location.replace("http://" + window.location.host + "/tv");
-            }
-            function iAmPlayer() {
-                var name = document.querySelector("#playerButton").value.trim();
-
-                localStorage.setItem("name", name);
-                window.location.replace("http://" + window.location.host + "/player/" + name);
-            }
+            };
         </script>
     </body>
 </html>
